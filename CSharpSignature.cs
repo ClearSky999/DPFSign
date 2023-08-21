@@ -16,7 +16,7 @@ namespace CSharpDPFSign
     public interface ICSharpSignature
     {
         
-        string returnInput(string str);
+        string ReturnInput(string str);
 
        string Sign(string pdfBase64, string imgBase64, string certBase64, string certPwd, string reason, string location);
     }
@@ -27,18 +27,18 @@ namespace CSharpDPFSign
     public class CSharpSignature : ICSharpSignature
     {
      
-        public string returnInput(string str)
+        public string ReturnInput(string str)
         {
             
             return "你输入的是:" + str;
         }
-    
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="pdf">pdf的文件流</param>
-        /// <param name="img">签章图片的文件流</param>
-        /// <param name="cert">证书的文件流</param>
+        /// <param name="pdf">pdf文件的字符串</param>
+        /// <param name="img">签章图片的字符串</param>
+        /// <param name="cert">证书的字符串</param>
         /// <param name="certPwd">证书的密码</param>
         /// <param name="reason">签发时原因</param>
         /// <param name="location">签发时位置</param>
@@ -143,11 +143,12 @@ namespace CSharpDPFSign
                 resDic["success"] = false;
 
             }
-         
-            var serializer = new JavaScriptSerializer();
 
-            // 设置最大长度为500MB
-          serializer.MaxJsonLength = 500 * 1024 * 1024;
+            var serializer = new JavaScriptSerializer
+            {
+                // 设置最大长度为500MB
+                MaxJsonLength = 500 * 1024 * 1024
+            };
             string json = serializer.Serialize(resDic);
         
             return json;
@@ -157,7 +158,7 @@ namespace CSharpDPFSign
         private MemoryStream ConvertLargeBase64StringToStream(string base64String)
         {
             int blockSize = 4 * 1024; // 4KB blocks
-            int byteBlockSize = (int)Math.Ceiling((double)blockSize * 3 / 4); // Size must be multiple of 4
+           // int byteBlockSize = (int)Math.Ceiling((double)blockSize * 3 / 4); // Size must be multiple of 4
 
             MemoryStream memoryStream = new MemoryStream();
             for (int i = 0; i < base64String.Length; i += blockSize)

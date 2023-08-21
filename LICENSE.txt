@@ -1,1 +1,2 @@
 
+由于使用了https://github.com/itext/itextsharp ，所以本协议以https://github.com/itext/itextsharp的协议为准
